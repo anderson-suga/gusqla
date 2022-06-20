@@ -3,7 +3,7 @@ from datetime import datetime
 from sqla_sync_03.models.model_base import ModelBase
 
 
-class TiposPicole(ModelBase):
+class TipoPicole(ModelBase):
     __tablename__: str = 'tipos_picole'
 
     id: int = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)

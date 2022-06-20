@@ -3,7 +3,7 @@ from datetime import datetime
 from sqla_sync_03.models.model_base import ModelBase
 
 
-class TiposEmbalagem(ModelBase):
+class TipoEmbalagem(ModelBase):
     __tablename__: str = 'tipos_embalagem'
 
     id: int = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
