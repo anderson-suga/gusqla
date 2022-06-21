@@ -159,8 +159,8 @@ def insert_revendedor() -> Revendedor:
 def insert_lote() -> Lote:
     print('Cadastrando Lote')
 
-    id_tipo_picole: int = input('Informe o ID do tipo do picole: ')
-    quantidade: int = input('Informe a quantidade do picole: ')
+    id_tipo_picole: int = int(input('Informe o ID do tipo do picole: '))
+    quantidade: int = int(input('Informe a quantidade do picole: '))
 
     lote: Lote = Lote(id_tipo_picole=id_tipo_picole,
                       quantidade=quantidade)
@@ -182,7 +182,7 @@ def insert_lote() -> Lote:
 def insert_nota_fiscal() -> None:
     print('Cadastrando Nota Fiscal')
 
-    valor: float = input('Informe o valor da nota fiscal: ')
+    valor: float = float(input('Informe o valor da nota fiscal: '))
     numero_serie: str = input('Informe o número da série: ')
     descricao: str = input('Informe a descrição da nota fiscal: ')
 
@@ -218,10 +218,10 @@ def insert_nota_fiscal() -> None:
 def insert_picole() -> None:
     print('Cadastrando Picole')
 
-    preco: float = input('Informe o preço do picole: ')
-    id_sabor: int = input('Informe o ID do sabor: ')
-    id_tipo_picole: int = input('Informe o ID do tipo do picole: ')
-    id_tipo_embalagem: int = input('Informe o ID do tipo da embalagem: ')
+    preco: float = float(input('Informe o preço do picole: '))
+    id_sabor: int = int(input('Informe o ID do sabor: '))
+    id_tipo_picole: int = int(input('Informe o ID do tipo do picole: '))
+    id_tipo_embalagem: int = int(input('Informe o ID do tipo da embalagem: '))
 
     picole: Picole = Picole(preco=preco,
                             id_sabor=id_sabor,
