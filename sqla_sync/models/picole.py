@@ -4,13 +4,13 @@ import sqlalchemy.orm as orm
 from datetime import datetime
 from typing import List, Optional
 
-from sqla_sync_03.models.model_base import ModelBase
-from sqla_sync_03.models.sabor import Sabor
-from sqla_sync_03.models.tipo_embalagem import TipoEmbalagem
-from sqla_sync_03.models.tipo_picole import TipoPicole
-from sqla_sync_03.models.ingrediente import Ingrediente
-from sqla_sync_03.models.conservante import Conservante
-from sqla_sync_03.models.aditivo_nutritivo import AditivoNutritivo
+from sqla_sync.models.model_base import ModelBase
+from sqla_sync.models.sabor import Sabor
+from sqla_sync.models.tipo_embalagem import TipoEmbalagem
+from sqla_sync.models.tipo_picole import TipoPicole
+from sqla_sync.models.ingrediente import Ingrediente
+from sqla_sync.models.conservante import Conservante
+from sqla_sync.models.aditivo_nutritivo import AditivoNutritivo
 
 # Picolé pode ter vários ingredientes
 ingredientes_picole = sa.Table(

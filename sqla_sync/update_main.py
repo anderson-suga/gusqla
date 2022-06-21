@@ -1,7 +1,7 @@
-from sqla_sync_03.conf.db_session import create_session
+from sqla_sync.conf.db_session import create_session
 
-from sqla_sync_03.models.sabor import Sabor
-from sqla_sync_03.models.picole import Picole
+from sqla_sync.models.sabor import Sabor
+from sqla_sync.models.picole import Picole
 
 
 def atualiza_sabor(id_sabor: int, novo_sabor: str) -> None:

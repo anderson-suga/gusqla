@@ -3,16 +3,16 @@ from typing import List
 # Funções de agregação
 from sqlalchemy import func
 
-from sqla_sync_03.conf.helpers import formata_data
-from sqla_sync_03.conf.db_session import create_session
+from sqla_sync.conf.helpers import formata_data
+from sqla_sync.conf.db_session import create_session
 
 # Select simples
-from sqla_sync_03.models.aditivo_nutritivo import AditivoNutritivo
-from sqla_sync_03.models.sabor import Sabor
-from sqla_sync_03.models.revendedor import Revendedor
+from sqla_sync.models.aditivo_nutritivo import AditivoNutritivo
+from sqla_sync.models.sabor import Sabor
+from sqla_sync.models.revendedor import Revendedor
 
 # Select Compostos
-from sqla_sync_03.models.picole import Picole
+from sqla_sync.models.picole import Picole
 
 
 # SELECT * FROM aditivos_nutritivos

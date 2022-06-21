@@ -1,14 +1,14 @@
-from sqla_sync_03.conf.db_session import create_session
-from sqla_sync_03.models.aditivo_nutritivo import AditivoNutritivo
-from sqla_sync_03.models.conservante import Conservante
-from sqla_sync_03.models.ingrediente import Ingrediente
-from sqla_sync_03.models.lote import Lote
-from sqla_sync_03.models.nota_fiscal import NotaFiscal
-from sqla_sync_03.models.picole import Picole
-from sqla_sync_03.models.revendedor import Revendedor
-from sqla_sync_03.models.sabor import Sabor
-from sqla_sync_03.models.tipo_embalagem import TipoEmbalagem
-from sqla_sync_03.models.tipo_picole import TipoPicole
+from sqla_sync.conf.db_session import create_session
+from sqla_sync.models.aditivo_nutritivo import AditivoNutritivo
+from sqla_sync.models.conservante import Conservante
+from sqla_sync.models.ingrediente import Ingrediente
+from sqla_sync.models.lote import Lote
+from sqla_sync.models.nota_fiscal import NotaFiscal
+from sqla_sync.models.picole import Picole
+from sqla_sync.models.revendedor import Revendedor
+from sqla_sync.models.sabor import Sabor
+from sqla_sync.models.tipo_embalagem import TipoEmbalagem
+from sqla_sync.models.tipo_picole import TipoPicole
 
 
 # Aditivo Nutritivo

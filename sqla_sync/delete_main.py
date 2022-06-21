@@ -1,9 +1,9 @@
 from typing import Optional
 
-from sqla_sync_03.conf.db_session import create_session
+from sqla_sync.conf.db_session import create_session
 
-from sqla_sync_03.models.picole import Picole
-from sqla_sync_03.models.revendedor import Revendedor
+from sqla_sync.models.picole import Picole
+from sqla_sync.models.revendedor import Revendedor
 
 
 def deletar_picole(id_picole: int) -> None:

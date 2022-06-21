@@ -5,7 +5,7 @@ from sqlalchemy.future.engine import Engine
 from pathlib import Path
 from typing import Optional
 
-from sqla_sync_03.models.model_base import ModelBase
+from sqla_sync.models.model_base import ModelBase
 
 __engine: Optional[Engine] = None
 
@@ -51,7 +51,7 @@ def create_tables() -> None:
         # create_engine(sqlite=True)
         create_engine()
 
-    import sqla_sync_03.models.__all_models
+    import sqla_sync.models.__all_models
     ModelBase.metadata.drop_all(__engine)
     ModelBase.metadata.create_all(__engine)
 
