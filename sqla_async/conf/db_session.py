@@ -12,9 +12,9 @@ __async_engine: Optional[AsyncEngine] = None
 
 
 def create_engine(sqlite: bool = False) -> AsyncEngine:
-    '''
+    """
     Função para configurar a conexão ao banco de dados
-    '''
+    """
     global __async_engine
 
     if __async_engine:
@@ -41,9 +41,9 @@ def create_engine(sqlite: bool = False) -> AsyncEngine:
 
 
 def create_session() -> AsyncSession:
-    '''
+    """
     Função para criar a sessão de conexão ao banco de dados
-    '''
+    """
     global __async_engine
 
     if not __async_engine:
