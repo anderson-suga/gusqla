@@ -1,8 +1,8 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from datetime import datetime
-from sqla_sync.models.model_base import ModelBase
-from sqla_sync.models.tipo_picole import TipoPicole
+from sqla_async.models.model_base import ModelBase
+from sqla_async.models.tipo_picole import TipoPicole
 
 
 class Lote(ModelBase):

@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 from datetime import datetime
-from sqla_sync.models.model_base import ModelBase
+from sqla_async.models.model_base import ModelBase
 
 
 class Sabor(ModelBase):

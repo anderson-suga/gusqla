@@ -4,9 +4,9 @@ import sqlalchemy.orm as orm
 from datetime import datetime
 from typing import List
 
-from sqla_sync.models.model_base import ModelBase
-from sqla_sync.models.revendedor import Revendedor
-from sqla_sync.models.lote import Lote
+from sqla_async.models.model_base import ModelBase
+from sqla_async.models.revendedor import Revendedor
+from sqla_async.models.lote import Lote
 
 # Nota Fiscal pode ter vários lotes
 lotes_nota_fiscal = sa.Table(
