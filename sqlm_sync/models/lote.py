@@ -1,20 +1,22 @@
-import sqlalchemy as sa
-import sqlalchemy.orm as orm
+from typing import Optional
+
+from sqlmodel import Field, SQLModel, Relationship
+
 from datetime import datetime
-from sqla_sync.models.model_base import ModelBase
-from sqla_sync.models.tipo_picole import TipoPicole
+
+from sqlm_sync.models.tipo_picole import TipoPicole
 
 
-class Lote(ModelBase):
+class Lote(SQLModel, table=True):
     __tablename__: str = 'lotes'
 
-    id: int = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
-    data_criacao: datetime = sa.Column(sa.DateTime, default=datetime.now, index=True)
+    id: Optional[int] = Field(primary_key=True, autoincrement=True)
+    data_criacao: datetime = Field(default=datetime.now, index=True)
 
-    id_tipo_picole: int = sa.Column(sa.Integer, sa.ForeignKey('tipos_picole.id'))
-    tipo_picole: TipoPicole = orm.relationship('TipoPicole', lazy='joined')
+    id_tipo_picole: Optional[int] = Field(default=None, foreign_key='tipos_picole.id')
+    tipo_picole: TipoPicole = Relationship(back_populates='tipo_picole')
 
-    quantidade: int = sa.Column(sa.Integer, nullable=False)
+    quantidade: int = Field()
 
     def __repr__(self) -> int:
         return f'<Lote: {self.id}>'

@@ -1,37 +1,36 @@
-import sqlalchemy as sa
-import sqlalchemy.orm as orm
+from typing import Optional, List
+
+from sqlmodel import Field, SQLModel, Relationship
 
 from datetime import datetime
-from typing import List
+from pydantic import condecimal
 
-from sqla_sync.models.model_base import ModelBase
-from sqla_sync.models.revendedor import Revendedor
-from sqla_sync.models.lote import Lote
+from sqlm_sync.models.revendedor import Revendedor
+from sqlm_sync.models.lote import Lote
+
 
 # Nota Fiscal pode ter vários lotes
-lotes_nota_fiscal = sa.Table(
-    'lotes_nota_fiscal',
-    ModelBase.metadata,
-    sa.Column('id_nota_fiscal', sa.Integer, sa.ForeignKey('notas_fiscais.id')),
-    sa.Column('id_lote', sa.Integer, sa.ForeignKey('lotes.id'))
-)
+class LotesNotaFiscal(SQLModel, table=True):
+    id: Optional[int] = Field(primary_key=True, autoincrement=True)
+    id_nota_fiscal: Optional[int] = Field(foreign_key='notas_fiscais.id')
+    id_lote: Optional[int] = Field(foreign_key='lotes.id')
 
 
-class NotaFiscal(ModelBase):
+class NotaFiscal(SQLModel, table=True):
     __tablename__: str = 'notas_fiscais'
 
-    id: int = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
-    data_criacao: datetime = sa.Column(sa.DateTime, default=datetime.now, index=True)
+    id: Optional[int] = Field(primary_key=True, autoincrement=True)
+    data_criacao: datetime = Field(default=datetime.now, index=True)
 
-    valor: float = sa.Column(sa.DECIMAL(8, 2), nullable=False)
-    numero_serie: str = sa.Column(sa.String(45), unique=True, nullable=False)
-    descricao: str = sa.Column(sa.String(200), nullable=False)
+    valor: condecimal(max_digits=5, decimal_places=2) = Field(default=0)
+    numero_serie: str = Field(max_length=45, unique=True)
+    descricao: str = Field(max_length=200)
 
-    id_revendedor: int = sa.Column(sa.Integer, sa.ForeignKey('revendedores.id'))
-    revendedor: Revendedor = orm.relationship('Revendedor', lazy='joined')
+    id_revendedor: Optional[int] = Field(foreign_key='revendedores.id', ondelete='CASCADE')
+    revendedor: Revendedor = Relationship('Revendedor', lazy='joined', cascade='delete')
 
     # Uma nota fiscal pode ter vários lotes e um lote está ligado a uma nota fiscal
-    lotes: List[Lote] = orm.relationship('Lote', secondary=lotes_nota_fiscal, backref='lote', lazy='dynamic')
+    lotes: List[Lote] = Relationship('Lote', link_model=LotesNotaFiscal, back_populates='lote', lazy='dynamic')
 
     def __repr__(self) -> str:
         return f'<Nota Fiscal: {self.numero_serie}>'
