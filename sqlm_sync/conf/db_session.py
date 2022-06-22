@@ -1,11 +1,11 @@
-import sqlalchemy as sa
-from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy.future.engine import Engine
-
 from pathlib import Path
 from typing import Optional
 
-from sqla_sync.models.model_base import ModelBase
+from sqlalchemy.future.engine import Engine
+
+from sqlmodel import Session
+from sqlmodel import create_engine as _create_engine
+from sqlmodel import SQLModel
 
 __engine: Optional[Engine] = None
 
@@ -22,10 +22,10 @@ def create_engine(sqlite: bool = False) -> Engine:
         folder.mkdir(parents=True, exist_ok=True)
 
         conn_str = f'sqlite:///{arquivo_db}'
-        __engine = sa.create_engine(url=conn_str, echo=False, connect_args={'check_same_thread': False})
+        __engine = _create_engine(url=conn_str, echo=False, connect_args={'check_same_thread': False})
     else:
         conn_str = 'postgresql://anderson:Teste123@localhost:5432/picoles'
-        __engine = sa.create_engine(url=conn_str, echo=False)
+        __engine = _create_engine(url=conn_str, echo=False)
 
     return __engine
 
@@ -37,9 +37,7 @@ def create_session() -> Session:
         # create_engine(sqlite=True)
         create_engine()
 
-    __session = sessionmaker(__engine, expire_on_commit=False, class_=Session)
-
-    session: Session = __session()
+    session: Session = Session(__engine)
 
     return session
 
@@ -51,9 +49,9 @@ def create_tables() -> None:
         # create_engine(sqlite=True)
         create_engine()
 
-    import sqla_sync.models.__all_models
-    ModelBase.metadata.drop_all(__engine)
-    ModelBase.metadata.create_all(__engine)
+    import sqlm_sync.models
+    SQLModel.metadata.drop_all(__engine)
+    SQLModel.metadata.create_all(__engine)
 
 
 if __name__ == '__main__':
