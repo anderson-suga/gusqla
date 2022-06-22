@@ -1,15 +1,15 @@
-import sqlalchemy as sa
+from typing import Optional
+from sqlmodel import Field, SQLModel
 from datetime import datetime
-from sqla_sync.models.model_base import ModelBase
 
 
-class TipoEmbalagem(ModelBase):
+class TipoEmbalagem(SQLModel, table=True):
     __tablename__: str = 'tipos_embalagem'
 
-    id: int = sa.Column(sa.BigInteger, primary_key=True, autoincrement=True)
-    data_criacao: datetime = sa.Column(sa.DateTime, default=datetime.now, index=True)
+    id: Optional[int] = Field(primary_key=True, autoincrement=True)
+    data_criacao: datetime = Field(default=datetime.now, index=True)
 
-    nome: str = sa.Column(sa.String(45), unique=True, nullable=False)
+    nome: str = Field(max_length=45, unique=True)
 
     def __repr__(self) -> str:
         return f'<Tipo Embalagem: {self.nome}>'
