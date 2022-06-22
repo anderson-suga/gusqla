@@ -1,14 +1,17 @@
 from typing import Optional
 
-from sqla_sync.conf.db_session import create_session
+from sqlalchemy.future import select
+from sqla_async.conf.db_session import create_session
 
-from sqla_sync.models.picole import Picole
-from sqla_sync.models.revendedor import Revendedor
+from sqla_async.models.picole import Picole
+from sqla_async.models.revendedor import Revendedor
 
 
-def deletar_picole(id_picole: int) -> None:
-    with create_session() as session:
-        picole: Optional[Picole] = session.query(Picole).filter(Picole.id == id_picole).one_or_none()
+async def deletar_picole(id_picole: int) -> None:
+    async with create_session() as session:
+        query = select(Picole).filter(Picole.id == id_picole)
+        picole: Optional[Picole] = await session.execute(query)
+        picole = picole.unique().scalar_one_or_none()
 
         if picole:
             session.delete(picole)
@@ -17,10 +20,11 @@ def deletar_picole(id_picole: int) -> None:
             print(f'Não encontrei picole com ID {id_picole}')
 
 
-def deletar_revendedor(id_revendedor: int) -> None:
-    with create_session() as session:
-        revendedor: Optional[Revendedor] = session.query(Revendedor).filter(
-            Revendedor.id == id_revendedor).one_or_none()
+async def deletar_revendedor(id_revendedor: int) -> None:
+    async with create_session() as session:
+        query = select(Revendedor).filter(Revendedor.id == id_revendedor)
+        revendedor: Optional[Revendedor] = await session.execute(query)
+        revendedor = revendedor.scalar_one_or_none()
 
         if revendedor:
             session.delete(revendedor)
