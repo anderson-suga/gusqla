@@ -43,7 +43,7 @@ def select_filtro_sabor(id_sabor: int) -> None:
         # Forma 3 - Retorna 'sqlalchemy.exc.NoResultFound' caso não encontre
         # sabor: Sabor = session.query(Sabor).filter(Sabor.id == id_sabor).one()
 
-        # Forma 3 - Usando where ao invés de filter (one(), one_or_none(), first())
+        # Forma 4 - Usando where ao invés de filter (one(), one_or_none(), first())
         sabor: Sabor = session.query(Sabor).where(Sabor.id == id_sabor).one_or_none()
 
         print(f'ID: {sabor.id}')
