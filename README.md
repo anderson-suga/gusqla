@@ -3,5 +3,5 @@
 URL: https://www.udemy.com/course/sql-alchemy-essencial/
 
 ```
-pip install SQLAlchemy tqdm psycopg2-binary aiosqlite asyncpg
+pip install SQLAlchemy tqdm psycopg2-binary aiosqlite asyncpg sqlmodel
 ```
