@@ -1,14 +1,14 @@
 from typing import Optional
 
-from sqla_sync.conf.db_session import create_session
+from sqlm_sync.conf.db_session import create_session
 
-from sqla_sync.models.picole import Picole
-from sqla_sync.models.revendedor import Revendedor
+from sqlm_sync.models.picole import Picole
+from sqlm_sync.models.revendedor import Revendedor
 
 
 def deletar_picole(id_picole: int) -> None:
     with create_session() as session:
-        picole: Optional[Picole] = session.query(Picole).filter(Picole.id == id_picole).one_or_none()
+        picole: Optional[Picole] = session.get(Picole, id_picole)
 
         if picole:
             session.delete(picole)
@@ -19,8 +19,7 @@ def deletar_picole(id_picole: int) -> None:
 
 def deletar_revendedor(id_revendedor: int) -> None:
     with create_session() as session:
-        revendedor: Optional[Revendedor] = session.query(Revendedor).filter(
-            Revendedor.id == id_revendedor).one_or_none()
+        revendedor: Optional[Revendedor] = session.get(Revendedor, id_revendedor)
 
         if revendedor:
             session.delete(revendedor)
