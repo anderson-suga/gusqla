@@ -1,15 +1,17 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel
+from sqlalchemy import UniqueConstraint
 from datetime import datetime
 
 
 class Revendedor(SQLModel, table=True):
     __tablename__: str = 'revendedores'
+    __table_args__ = (UniqueConstraint('nome'),)
 
-    id: Optional[int] = Field(primary_key=True, autoincrement=True)
-    data_criacao: datetime = Field(default=datetime.now, index=True)
+    id: Optional[int] = Field(primary_key=True)
+    data_criacao: datetime = Field(default=datetime.now(), index=True)
 
-    nome: str = Field(max_length=45, unique=True)
+    nome: str = Field(max_length=45)
     razao_social: str = Field(max_length=100)
     contato: str = Field(max_length=100)
 
