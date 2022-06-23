@@ -1,14 +1,14 @@
-from sqla_sync.conf.db_session import create_session
-from sqla_sync.models.aditivo_nutritivo import AditivoNutritivo
-from sqla_sync.models.conservante import Conservante
-from sqla_sync.models.ingrediente import Ingrediente
-from sqla_sync.models.lote import Lote
-from sqla_sync.models.nota_fiscal import NotaFiscal
-from sqla_sync.models.picole import Picole
-from sqla_sync.models.revendedor import Revendedor
-from sqla_sync.models.sabor import Sabor
-from sqla_sync.models.tipo_embalagem import TipoEmbalagem
-from sqla_sync.models.tipo_picole import TipoPicole
+from sqlm_sync.conf.db_session import create_session
+from sqlm_sync.models.aditivo_nutritivo import AditivoNutritivo
+from sqlm_sync.models.conservante import Conservante
+from sqlm_sync.models.ingrediente import Ingrediente
+from sqlm_sync.models.lote import Lote
+from sqlm_sync.models.nota_fiscal import NotaFiscal
+from sqlm_sync.models.picole import Picole
+from sqlm_sync.models.revendedor import Revendedor
+from sqlm_sync.models.sabor import Sabor
+from sqlm_sync.models.tipo_embalagem import TipoEmbalagem
+from sqlm_sync.models.tipo_picole import TipoPicole
 
 
 # Aditivo Nutritivo
@@ -24,13 +24,13 @@ def insert_aditivo_nutritivo() -> AditivoNutritivo:
         session.add(an)
         session.commit()
 
-    print('Aditivo Nutritivo cadastrado com sucesso')
-    print(f'ID: {an.id}')
-    print(f'Data: {an.data_criacao}')
-    print(f'Nome: {an.nome}')
-    print(f'Fórmula Química: {an.formula_quimica}')
+        print('Aditivo Nutritivo cadastrado com sucesso')
+        print(f'ID: {an.id}')
+        print(f'Data: {an.data_criacao}')
+        print(f'Nome: {an.nome}')
+        print(f'Fórmula Química: {an.formula_quimica}')
 
-    return an
+        return an
 
 
 # Sabor
@@ -45,10 +45,10 @@ def insert_sabor() -> None:
         session.add(sabor)
         session.commit()
 
-    print('Sabor cadastrado com sucesso')
-    print(f'ID: {sabor.id}')
-    print(f'Data: {sabor.data_criacao}')
-    print(f'Nome: {sabor.nome}')
+        print('Sabor cadastrado com sucesso')
+        print(f'ID: {sabor.id}')
+        print(f'Data: {sabor.data_criacao}')
+        print(f'Nome: {sabor.nome}')
 
 
 # Tipo Embalagem
@@ -63,10 +63,10 @@ def insert_tipo_embalagem() -> None:
         session.add(te)
         session.commit()
 
-    print('Tipo Embalagem cadastrado com sucesso')
-    print(f'ID: {te.id}')
-    print(f'Data: {te.data_criacao}')
-    print(f'Nome: {te.nome}')
+        print('Tipo Embalagem cadastrado com sucesso')
+        print(f'ID: {te.id}')
+        print(f'Data: {te.data_criacao}')
+        print(f'Nome: {te.nome}')
 
 
 # Tipo Picole
@@ -81,10 +81,10 @@ def insert_tipo_picole() -> None:
         session.add(tp)
         session.commit()
 
-    print('Tipo Picole cadastrado com sucesso')
-    print(f'ID: {tp.id}')
-    print(f'Data: {tp.data_criacao}')
-    print(f'Nome: {tp.nome}')
+        print('Tipo Picole cadastrado com sucesso')
+        print(f'ID: {tp.id}')
+        print(f'Data: {tp.data_criacao}')
+        print(f'Nome: {tp.nome}')
 
 
 # Ingrediente
@@ -99,12 +99,12 @@ def insert_ingrediente() -> Ingrediente:
         session.add(ingrediente)
         session.commit()
 
-    print('Ingrediente cadastrado com sucesso')
-    print(f'ID: {ingrediente.id}')
-    print(f'Data: {ingrediente.data_criacao}')
-    print(f'Nome: {ingrediente.nome}')
+        print('Ingrediente cadastrado com sucesso')
+        print(f'ID: {ingrediente.id}')
+        print(f'Data: {ingrediente.data_criacao}')
+        print(f'Nome: {ingrediente.nome}')
 
-    return ingrediente
+        return ingrediente
 
 
 # Conservante
@@ -120,13 +120,13 @@ def insert_conservante() -> Conservante:
         session.add(conservante)
         session.commit()
 
-    print('Conservante cadastrado com sucesso')
-    print(f'ID: {conservante.id}')
-    print(f'Data: {conservante.data_criacao}')
-    print(f'Nome: {conservante.nome}')
-    print(f'Descrição: {conservante.descricao}')
+        print('Conservante cadastrado com sucesso')
+        print(f'ID: {conservante.id}')
+        print(f'Data: {conservante.data_criacao}')
+        print(f'Nome: {conservante.nome}')
+        print(f'Descrição: {conservante.descricao}')
 
-    return conservante
+        return conservante
 
 
 # Revendedor
@@ -145,14 +145,14 @@ def insert_revendedor() -> Revendedor:
         session.add(revendedor)
         session.commit()
 
-    print('Revendedor cadastrado com sucesso')
-    print(f'ID: {revendedor.id}')
-    print(f'Data: {revendedor.data_criacao}')
-    print(f'Nome: {revendedor.nome}')
-    print(f'Razão social: {revendedor.razao_social}')
-    print(f'Contato: {revendedor.contato}')
+        print('Revendedor cadastrado com sucesso')
+        print(f'ID: {revendedor.id}')
+        print(f'Data: {revendedor.data_criacao}')
+        print(f'Nome: {revendedor.nome}')
+        print(f'Razão social: {revendedor.razao_social}')
+        print(f'Contato: {revendedor.contato}')
 
-    return revendedor
+        return revendedor
 
 
 # Lote
@@ -169,13 +169,13 @@ def insert_lote() -> Lote:
         session.add(lote)
         session.commit()
 
-    print('Lote cadastrado com sucesso')
-    print(f'ID: {lote.id}')
-    print(f'Data: {lote.data_criacao}')
-    print(f'ID do tipo do picole: {lote.id_tipo_picole}')
-    print(f'Quantidade: {lote.quantidade}')
+        print('Lote cadastrado com sucesso')
+        print(f'ID: {lote.id}')
+        print(f'Data: {lote.data_criacao}')
+        print(f'ID do tipo do picole: {lote.id_tipo_picole}')
+        print(f'Quantidade: {lote.quantidade}')
 
-    return lote
+        return lote
 
 
 # Nota Fiscal
@@ -204,14 +204,14 @@ def insert_nota_fiscal() -> None:
         session.add(nf)
         session.commit()
 
-    print('Nota Fiscal cadastrada com sucesso')
-    print(f'ID: {nf.id}')
-    print(f'Data: {nf.data_criacao}')
-    print(f'Valor: {nf.valor}')
-    print(f'Número da Série: {nf.numero_serie}')
-    print(f'Descrição: {nf.descricao}')
-    print(f'ID Revendedor: {nf.id_revendedor}')
-    print(f'Revendedor: {nf.revendedor.razao_social}')
+        print('Nota Fiscal cadastrada com sucesso')
+        print(f'ID: {nf.id}')
+        print(f'Data: {nf.data_criacao}')
+        print(f'Valor: {nf.valor}')
+        print(f'Número da Série: {nf.numero_serie}')
+        print(f'Descrição: {nf.descricao}')
+        print(f'ID Revendedor: {nf.id_revendedor}')
+        print(f'Revendedor: {nf.revendedor.razao_social}')
 
 
 # Picole
@@ -244,16 +244,16 @@ def insert_picole() -> None:
         session.add(picole)
         session.commit()
 
-    print('Picole cadastrado com sucesso')
-    print(f'ID: {picole.id}')
-    print(f'Data: {picole.data_criacao}')
-    print(f'Preço: {picole.preco}')
-    print(f'Sabor: {picole.sabor.nome}')
-    print(f'Tipo Picole: {picole.tipo_picole.nome}')
-    print(f'Tipo Embalagem: {picole.tipo_embalagem.nome}')
-    print(f'Ingredientes: {picole.ingredientes}')
-    print(f'Conservantes: {picole.conservantes}')
-    print(f'Aditivos Nutritivos: {picole.aditivos_nutritivos}')
+        print('Picole cadastrado com sucesso')
+        print(f'ID: {picole.id}')
+        print(f'Data: {picole.data_criacao}')
+        print(f'Preço: {picole.preco}')
+        print(f'Sabor: {picole.sabor.nome}')
+        print(f'Tipo Picole: {picole.tipo_picole.nome}')
+        print(f'Tipo Embalagem: {picole.tipo_embalagem.nome}')
+        print(f'Ingredientes: {picole.ingredientes}')
+        print(f'Conservantes: {picole.conservantes}')
+        print(f'Aditivos Nutritivos: {picole.aditivos_nutritivos}')
 
 
 if __name__ == '__main__':

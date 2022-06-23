@@ -3,18 +3,18 @@ from time import sleep
 from tqdm import tqdm  # pip install tqdm
 from sqlalchemy.orm import Session
 
-from sqla_sync.conf.helpers import gerar_string, gerar_int, gerar_float, gerar_cor
-from sqla_sync.conf.db_session import create_session
-from sqla_sync.models.aditivo_nutritivo import AditivoNutritivo
-from sqla_sync.models.sabor import Sabor
-from sqla_sync.models.tipo_embalagem import TipoEmbalagem
-from sqla_sync.models.tipo_picole import TipoPicole
-from sqla_sync.models.ingrediente import Ingrediente
-from sqla_sync.models.conservante import Conservante
-from sqla_sync.models.revendedor import Revendedor
-from sqla_sync.models.lote import Lote
-from sqla_sync.models.nota_fiscal import NotaFiscal
-from sqla_sync.models.picole import Picole
+from sqlm_sync.conf.helpers import gerar_string, gerar_int, gerar_float, gerar_cor
+from sqlm_sync.conf.db_session import create_session
+from sqlm_sync.models.aditivo_nutritivo import AditivoNutritivo
+from sqlm_sync.models.sabor import Sabor
+from sqlm_sync.models.tipo_embalagem import TipoEmbalagem
+from sqlm_sync.models.tipo_picole import TipoPicole
+from sqlm_sync.models.ingrediente import Ingrediente
+from sqlm_sync.models.conservante import Conservante
+from sqlm_sync.models.revendedor import Revendedor
+from sqlm_sync.models.lote import Lote
+from sqlm_sync.models.nota_fiscal import NotaFiscal
+from sqlm_sync.models.picole import Picole
 
 
 # 1) Aditivos Nutritivos
@@ -214,27 +214,33 @@ def populate_picole():
         picole: Picole = Picole(preco=preco, id_sabor=id_sabor, id_tipo_embalagem=id_tipo_embalagem,
                                 id_tipo_picole=id_tipo_picole)
 
+        tmp_ingrediente = []
         # Ingredientes
         for n in range(5):
             nome: str = gerar_string()
             ingrediente: Ingrediente = Ingrediente(nome=nome)
-            picole.ingredientes.append(ingrediente)
+            tmp_ingrediente.append(ingrediente)
+        picole.ingredientes = tmp_ingrediente
 
         op = gerar_float()
+        tmp_aditivos_nutritivos = []
+        tmp_conservantes = []
         if op > 5:
             for _ in range(3):
                 # Aditivos Nutritivos
                 nome: str = gerar_string()
                 formula_quimica: str = gerar_string(frase=True)
                 aditivo_nutritivo: AditivoNutritivo = AditivoNutritivo(nome=nome, formula_quimica=formula_quimica)
-                picole.aditivos_nutritivos.append(aditivo_nutritivo)
+                tmp_aditivos_nutritivos.append(aditivo_nutritivo)
+            picole.aditivos_nutritivos = tmp_aditivos_nutritivos
         else:
             for _ in range(3):
                 # Conservantes
                 nome: str = gerar_string()
                 descricao: str = gerar_string(frase=True)
                 conservante: Conservante = Conservante(nome=nome, descricao=descricao)
-                picole.conservantes.append(conservante)
+                tmp_conservantes.append(conservante)
+            picole.conservantes = tmp_conservantes
 
         session.add(picole)
         sleep(0.05)
