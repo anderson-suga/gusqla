@@ -3,26 +3,25 @@ from typing import List
 # Funções de agregação
 from sqlalchemy import func
 
-from sqla_sync.conf.helpers import formata_data
-from sqla_sync.conf.db_session import create_session
+from sqlmodel import select
+
+from sqlm_sync.conf.helpers import formata_data
+from sqlm_sync.conf.db_session import create_session
 
 # Select simples
-from sqla_sync.models.aditivo_nutritivo import AditivoNutritivo
-from sqla_sync.models.sabor import Sabor
-from sqla_sync.models.revendedor import Revendedor
+from sqlm_sync.models.aditivo_nutritivo import AditivoNutritivo
+from sqlm_sync.models.sabor import Sabor
+from sqlm_sync.models.revendedor import Revendedor
 
 # Select Compostos
-from sqla_sync.models.picole import Picole
+from sqlm_sync.models.picole import Picole
 
 
 # SELECT * FROM aditivos_nutritivos
 def select_todos_aditivos_nutritivos() -> None:
     with create_session() as session:
-        # Forma 1 - Retorna objeto porém convert por causa da declaração
-        # aditivos_nutritivos: List[AditivoNutritivo] = session.query(AditivoNutritivo)
-
-        # Forma 2 - Retorna uma lista
-        aditivos_nutritivos: List[AditivoNutritivo] = session.query(AditivoNutritivo).all()
+        query = select(AditivoNutritivo)
+        aditivos_nutritivos = session.exec(query)
 
         for an in aditivos_nutritivos:
             print(f'ID: {an.id}')
@@ -34,17 +33,12 @@ def select_todos_aditivos_nutritivos() -> None:
 
 def select_filtro_sabor(id_sabor: int) -> None:
     with create_session() as session:
-        # Forma 1 - Retorna None caso não encontre
-        # sabor: Sabor = session.query(Sabor).filter(Sabor.id == id_sabor).first()
+        # query = select(Sabor).where(Sabor.id == id_sabor)
+        # resultado = session.exec(query)
+        # sabor: Sabor = resultado.first()
+        # sabor: Sabor = resultado.one()
 
-        # Forma 2 - Retorna None caso não encontre (Explicito)
-        # sabor: Sabor = session.query(Sabor).filter(Sabor.id == id_sabor).one_or_none()
-
-        # Forma 3 - Retorna 'sqlalchemy.exc.NoResultFound' caso não encontre
-        # sabor: Sabor = session.query(Sabor).filter(Sabor.id == id_sabor).one()
-
-        # Forma 4 - Usando where ao invés de filter (one(), one_or_none(), first())
-        sabor: Sabor = session.query(Sabor).where(Sabor.id == id_sabor).one_or_none()
+        sabor: Sabor = session.get(Sabor, id_sabor)
 
         print(f'ID: {sabor.id}')
         print(f'Data: {formata_data(sabor.data_criacao)}')
@@ -53,7 +47,9 @@ def select_filtro_sabor(id_sabor: int) -> None:
 
 def select_complexo_picole() -> None:
     with create_session() as session:
-        picoles: List[Picole] = session.query(Picole).all()
+        query = select(Picole)
+        resultado = session.exec(query)
+        picoles: List[Picole] = resultado.unique().all()
 
         for picole in picoles:
             print(f'ID: {picole.id}')
@@ -70,7 +66,9 @@ def select_complexo_picole() -> None:
 
 def select_order_by_sabor() -> None:
     with create_session() as session:
-        sabores: List[Sabor] = session.query(Sabor).order_by(Sabor.data_criacao.desc()).all()
+        query = select(Sabor).order_by(Sabor.data_criacao.desc())
+        resultado = session.exec(query)
+        sabores: List[Sabor] = resultado.all()
 
         for sabor in sabores:
             print(f'ID: {sabor.id}')
@@ -125,6 +123,7 @@ def select_agregacao() -> None:
         print(f'O picolé mais barato é: {resultado[0][2]}')
         print(f'O picolé mais caro é: {resultado[0][3]}')
 
+
 if __name__ == '__main__':
     # select_todos_aditivos_nutritivos()
 
@@ -132,7 +131,7 @@ if __name__ == '__main__':
 
     # select_complexo_picole()
 
-    # select_order_by_sabor()
+    select_order_by_sabor()
 
     # select_group_by_picole()
 
@@ -140,6 +139,6 @@ if __name__ == '__main__':
 
     # select_count_revendedor()
 
-    select_agregacao()
+    # select_agregacao()
 
     pass
