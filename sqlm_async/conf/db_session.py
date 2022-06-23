@@ -50,8 +50,8 @@ def create_tables() -> None:
 
     import sqlm_async.models
     async with __async_engine.begin() as conn:
-        await conn.run(SQLModel.metadata.drop_all)
-        await conn.run(SQLModel.metadata.create_all)
+        await conn.run_sync(SQLModel.metadata.drop_all)
+        await conn.run_sync(SQLModel.metadata.create_all)
 
 
 if __name__ == '__main__':
