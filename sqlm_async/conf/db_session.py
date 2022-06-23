@@ -1,19 +1,17 @@
 from pathlib import Path
 from typing import Optional
 
-from sqlalchemy.future.engine import Engine
-
-from sqlmodel import Session
 from sqlmodel import create_engine as _create_engine
 from sqlmodel import SQLModel
+from sqlmodel.ext.asyncio.session import AsyncSession, AsyncEngine
 
-__engine: Optional[Engine] = None
+__async_engine: Optional[AsyncEngine] = None
 
 
-def create_engine(sqlite: bool = False) -> Engine:
-    global __engine
+def create_engine(sqlite: bool = False) -> AsyncEngine:
+    global __async_engine
 
-    if __engine:
+    if __async_engine:
         return
 
     if sqlite:
@@ -21,37 +19,39 @@ def create_engine(sqlite: bool = False) -> Engine:
         folder = Path(arquivo_db).parent
         folder.mkdir(parents=True, exist_ok=True)
 
-        conn_str = f'sqlite:///{arquivo_db}'
-        __engine = _create_engine(url=conn_str, echo=False, connect_args={'check_same_thread': False})
+        conn_str = f'sqlite+aiosqlite:///{arquivo_db}'
+        __async_engine = AsyncEngine(
+            _create_engine(url=conn_str, echo=False, connect_args={'check_same_thread': False}))
     else:
-        conn_str = 'postgresql://anderson:Teste123@localhost:5432/picoles'
-        __engine = _create_engine(url=conn_str, echo=False)
+        conn_str = 'postgresql+asyncpg://anderson:Teste123@localhost:5432/picoles'
+        __async_engine = AsyncEngine(_create_engine(url=conn_str, echo=False))
 
-    return __engine
+    return __async_engine
 
 
-def create_session() -> Session:
-    global __engine
+def create_session() -> AsyncSession:
+    global __async_engine
 
-    if not __engine:
+    if not __async_engine:
         # create_engine(sqlite=True)
         create_engine()
 
-    session: Session = Session(__engine)
+    session: AsyncSession = AsyncSession(__async_engine)
 
     return session
 
 
 def create_tables() -> None:
-    global __engine
+    global __async_engine
 
-    if not __engine:
+    if not __async_engine:
         # create_engine(sqlite=True)
         create_engine()
 
-    import sqlm_sync.models
-    SQLModel.metadata.drop_all(__engine)
-    SQLModel.metadata.create_all(__engine)
+    import sqlm_async.models
+    async with __async_engine.begin() as conn:
+        await conn.run(SQLModel.metadata.drop_all)
+        await conn.run(SQLModel.metadata.create_all)
 
 
 if __name__ == '__main__':
