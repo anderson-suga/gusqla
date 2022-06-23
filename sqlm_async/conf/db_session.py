@@ -41,7 +41,7 @@ def create_session() -> AsyncSession:
     return session
 
 
-def create_tables() -> None:
+async def create_tables() -> None:
     global __async_engine
 
     if not __async_engine:
